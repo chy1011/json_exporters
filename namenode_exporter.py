@@ -1,15 +1,19 @@
+import prometheus_client
 from prometheus_client import start_http_server, Metric, REGISTRY
+import os
 import json
 import requests
 import sys
 import time
 
 class JsonCollector(object):
-	def __init__(self, endpoint):
-		self._endpoint = endpoint
+	def __init__(self):
+		pass
 	def collect(self):
+		#Get the Environment variable for JSON_URL
+		json_url = os.environ.get("JSON_URL")
 		# Fetch the JSON
-		response = json.loads(requests.get(self._endpoint).content.decode('UTF-8'))
+		response = json.loads(requests.get(json_url).content.decode('UTF-8'))
 		data = response["beans"]
 
 		for i in data:
@@ -54,7 +58,7 @@ class JsonCollector(object):
 
 if __name__ == '__main__':
 	# Usage: json_exporter.py port endpoint
-	start_http_server(int(sys.argv[1]))
-	REGISTRY.register(JsonCollector(sys.argv[2]))
+	start_http_server(19090)
+	REGISTRY.register(JsonCollector())
 
 	while True: time.sleep(1)
