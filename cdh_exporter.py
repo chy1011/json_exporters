@@ -2,6 +2,7 @@ import prometheus_client
 from prometheus_client import start_http_server, Metric, REGISTRY
 import json
 import requests
+from requests.auth import HTTPBasicAuth
 import sys
 import time
 import os
@@ -11,8 +12,10 @@ class JsonCollector(object):
 		pass
 	def collect(self):
 		namenode_url = os.environ.get("NAMENODE_URL")
+		user = os.environ.get("USER")
+		pwd = os.environ.get("PASSWORD")
 		# Fetch the JSON
-		response = json.loads(requests.get(namenode_url, verify=False).content.decode('UTF-8'))
+		response = json.loads(requests.get(namenode_url, auth=HTTPBasicAuth(user, pwd), verify=False).content.decode('UTF-8'))
 		data = response["beans"]
 
 		for i in data:
@@ -60,8 +63,10 @@ class JsonCollector2(object):
 		pass
 	def collect(self):
 		yarn_url = os.environ.get("YARN_URL")
+		user = os.environ.get("USER")
+		pwd = os.environ.get("PASSWORD")
 		# Fetch the JSON
-		response = json.loads(requests.get(yarn_url, verify=False).content.decode('UTF-8'))
+		response = json.loads(requests.get(yarn_url, auth=HTTPBasicAuth(user, pwd), verify=False).content.decode('UTF-8'))
 		data = response["beans"]
 
 		for i in data:
