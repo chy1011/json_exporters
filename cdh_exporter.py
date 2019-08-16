@@ -12,7 +12,7 @@ class JsonCollector(object):
 	def collect(self):
 		namenode_url = os.environ.get("NAMENODE_URL")
 		# Fetch the JSON
-		response = json.loads(requests.get(namenode_url).content.decode('UTF-8'))
+		response = json.loads(requests.get(namenode_url, verify=False).content.decode('UTF-8'))
 		data = response["beans"]
 
 		for i in data:
@@ -61,7 +61,7 @@ class JsonCollector2(object):
 	def collect(self):
 		yarn_url = os.environ.get("YARN_URL")
 		# Fetch the JSON
-		response = json.loads(requests.get(yarn_url).content.decode('UTF-8'))
+		response = json.loads(requests.get(yarn_url, verify=False).content.decode('UTF-8'))
 		data = response["beans"]
 
 		for i in data:
