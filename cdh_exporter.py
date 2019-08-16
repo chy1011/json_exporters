@@ -2,7 +2,6 @@ import prometheus_client
 from prometheus_client import start_http_server, Metric, REGISTRY
 import json
 import requests
-from requests.auth import HTTPBasicAuth
 import sys
 import time
 import os
