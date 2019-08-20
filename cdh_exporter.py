@@ -12,11 +12,11 @@ class JsonCollector(object):
 		pass
 	def collect(self):
 		namenode_url = os.environ.get("NAMENODE_URL")
-		user = os.environ.get("USER")
-		pwd = os.environ.get("PASSWORD")
+		#user = os.environ.get("USER")
+		#pwd = os.environ.get("PASSWORD")
 		# Fetch the JSON
 		kerberos_auth = HTTPKerberosAuth(mutual_authentication=REQUIRED, sanitize_mutual_error_response=False)
-		response = json.loads(requests.get(namenode_url, auth=(user, pwd), verify=False).content.decode('UTF-8'))
+		response = json.loads(requests.get(namenode_url, auth=(HTTPKerberosAuth()), verify=False).content.decode('UTF-8'))
 		data = response["beans"]
 
 		for i in data:
@@ -64,11 +64,11 @@ class JsonCollector2(object):
 		pass
 	def collect(self):
 		yarn_url = os.environ.get("YARN_URL")
-		user = os.environ.get("USER")
-		pwd = os.environ.get("PASSWORD")
+		#user = os.environ.get("USER")
+		#pwd = os.environ.get("PASSWORD")
 		# Fetch the JSON
 		kerberos_auth = HTTPKerberosAuth(mutual_authentication=REQUIRED, sanitize_mutual_error_response=False)
-		response = json.loads(requests.get(yarn_url, auth=(user, pwd), verify=False).content.decode('UTF-8'))
+		response = json.loads(requests.get(yarn_url, auth=(HTTPKerberosAuth()), verify=False).content.decode('UTF-8'))
 		data = response["beans"]
 
 		for i in data:
