@@ -1,4 +1,4 @@
-FROM python:3.6.9-slim
+FROM python:3.6.9
 
 RUN mkdir -p /app/cdh_exporter
 
