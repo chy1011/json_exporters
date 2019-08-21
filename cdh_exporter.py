@@ -15,7 +15,7 @@ class JsonCollector(object):
 		#user = os.environ.get("USER")
 		#pwd = os.environ.get("PASSWORD")
 		# Fetch the JSON
-		kerberos_auth = HTTPKerberosAuth(mutual_authentication=REQUIRED, sanitize_mutual_error_response=False)
+		kerberos_auth = HTTPKerberosAuth(delegate=True)
 		response = json.loads(requests.get(namenode_url, auth=(kerberos_auth), verify=False).content.decode('UTF-8'))
 		data = response["beans"]
 
@@ -67,7 +67,7 @@ class JsonCollector2(object):
 		#user = os.environ.get("USER")
 		#pwd = os.environ.get("PASSWORD")
 		# Fetch the JSON
-		kerberos_auth = HTTPKerberosAuth(mutual_authentication=REQUIRED, sanitize_mutual_error_response=False)
+		kerberos_auth = HTTPKerberosAuth(delegate=True)
 		response = json.loads(requests.get(yarn_url, auth=(kerberos_auth), verify=False).content.decode('UTF-8'))
 		data = response["beans"]
 
